@@ -36,10 +36,27 @@
             @Html.DisplayFor(model => model.JobPosition)
         </dd>
     </dl>
-    
-    <form asp-action="DeleteConfirmed">
-        <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+
+    <form method="post" onsubmit="event.preventDefault(); deleteEmployee(@Model.ID);">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
+
+<script>
+    function deleteEmployee(id) {
+        fetch(`/Employee/Delete/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+            }
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = '/Employee/Index';
+            } else {
+                alert('Error deleting employee');
+            }
+        });
+    }
+</script>

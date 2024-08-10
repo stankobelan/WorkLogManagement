@@ -1,35 +1,63 @@
 ﻿@model CSOB_Interview_WorkLogger.Data.Entities.WorkLog
 
 @{
-ViewBag.Title = "Delete Work Log";
+    ViewData["Title"] = "Delete Work Log";
 }
 
-<h2>Delete Work Log</h2>
+<h1>Delete Work Log</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-
+<h3>Are you sure you want to delete this work log?</h3>
 <div>
-    <h4>@Model.Description</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Created
+    <h4>Work Log Details</h4>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Created)
         </dt>
-        <dd>
-            @Model.Created
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Created)
         </dd>
-        <dt>
-            Status
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeId)
         </dt>
-        <dd>
-            @Model.Status
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmployeeId)
         </dd>
-        <!-- Pridajte ďalšie polia podľa potreby -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.Status == 1 ? "Started" : "Finished")
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <!-- Add more fields as necessary -->
     </dl>
+
+    <form method="post" onsubmit="event.preventDefault(); deleteWorkLog(@Model.Id);">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+    </form>
 </div>
 
-<form asp-action="DeleteConfirmed" method="post">
-    <input type="hidden" asp-for="Id" />
-    <input type="submit" value="Delete" class="btn btn-danger" /> |
-    <a asp-action="Index">Back to List</a>
-</form>
+<script>
+    function deleteWorkLog(id) {
+        fetch(`/WorkLog/Delete/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+            }
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = '/WorkLog/Index';
+            } else {
+                alert('Error deleting work log');
+            }
+        });
+    }
+</script>

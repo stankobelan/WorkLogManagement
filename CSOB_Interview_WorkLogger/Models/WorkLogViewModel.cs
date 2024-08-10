@@ -1,4 +1,5 @@
-﻿using CSOB_Interview_WorkLogger.Data.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using CSOB_Interview_WorkLogger.Data.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CSOB_Interview_WorkLogger.Models;
@@ -10,6 +11,8 @@ public class WorkLogViewModel
     
     [System.ComponentModel.DataAnnotations.Schema.NotMapped]
     public string? EmployeeName { get; set; }
+    
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
     public DateTime Created { get; set; }
     public string Description { get; set; }
         
