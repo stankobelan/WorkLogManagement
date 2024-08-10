@@ -1,0 +1,34 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "About the Work Log Management System";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <p>
+        The <strong>Work Log Management System</strong> is a web-based application designed to streamline and manage employee work logs effectively.
+    </p>
+
+    <p>
+        This application is built using the ASP.NET MVC framework and leverages Entity Framework Core for database management with Microsoft SQL Server. 
+        It enables administrators and employees to efficiently record, edit, and review work activities, ensuring that all work logs are accurately documented.
+    </p>
+
+    <h3>Key Features:</h3>
+    <ul>
+        <li>User-friendly interface for managing work logs.</li>
+        <li>Role-based access control to differentiate between administrators and employees.</li>
+        <li>Comprehensive reporting and review functionality for work logs.</li>
+        <li>Scalable and maintainable architecture following SOLID principles, YAGNI, and KISS methodologies.</li>
+        <li>Integrated with ASP.NET Identity for secure authentication and authorization.</li>
+    </ul>
+
+    <p>
+        The system is designed to be scalable, maintainable, and easy to use, making it an ideal solution for organizations looking to improve their work log management processes.
+    </p>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary">Back to Home</a>
+</div>
